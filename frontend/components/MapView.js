@@ -50,7 +50,7 @@ function MapUpdater({ center }) {
   return null;
 }
 
-export default function MapView({ userLocation, userId, isTracking }) {
+export default function MapView({ userLocation, isTracking }) {
   const [shops, setShops] = useState([]);
   const [selectedShop, setSelectedShop] = useState(null);
   const [route, setRoute] = useState(null);
@@ -123,10 +123,6 @@ export default function MapView({ userLocation, userId, isTracking }) {
     setSelectedShop(null);
     // Keep route visible after closing bottom sheet
     // User can still see the route on the map
-  };
-
-  const handleVoteUpdate = () => {
-    loadShops();
   };
 
   const handleClearRoute = () => {
@@ -206,11 +202,9 @@ export default function MapView({ userLocation, userId, isTracking }) {
       {selectedShop && (
         <BottomSheet
           shop={selectedShop}
-          userId={userId}
           route={route}
           onClose={handleCloseBottomSheet}
           onShowRoute={handleShowRoute}
-          onVoteUpdate={handleVoteUpdate}
           onClearRoute={handleClearRoute}
         />
       )}

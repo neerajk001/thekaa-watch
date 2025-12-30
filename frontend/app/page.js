@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { getUserId } from '@/lib/utils';
 
 const MapView = dynamic(() => import('@/components/MapView'), {
   ssr: false,
@@ -19,11 +18,9 @@ const MapView = dynamic(() => import('@/components/MapView'), {
 export default function Home() {
   const [userLocation, setUserLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
-  const [userId, setUserId] = useState(null);
   const [isTracking, setIsTracking] = useState(false);
 
   useEffect(() => {
-    setUserId(getUserId());
 
     if ('geolocation' in navigator) {
       // Watch position for real-time updates
@@ -61,7 +58,7 @@ export default function Home() {
     }
   }, []);
 
-  if (!userLocation || !userId) {
+  if (!userLocation) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-dark-bg">
         <div className="text-center">
@@ -76,7 +73,7 @@ export default function Home() {
 
   return (
     <main className="h-screen w-screen overflow-hidden">
-      <MapView userLocation={userLocation} userId={userId} isTracking={isTracking} />
+      <MapView userLocation={userLocation} isTracking={isTracking} />
     </main>
   );
 }
